@@ -36,3 +36,7 @@
 ### 5. Otra información que considere relevante para esta actividad.
 
 ## Referencias:
+
+- [Install MicroK8s](https://microk8s.io/#install-microk8s)
+- [Create a MicroK8s cluster](https://microk8s.io/docs/clustering)
+- [NFS in MicroK8s](https://microk8s.io/docs/how-to-nfs)
