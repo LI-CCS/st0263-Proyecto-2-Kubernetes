@@ -18,12 +18,51 @@
 
 ### 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 
-- Como se compila y ejecuta.
-- Detalles del desarrollo.
-- Detalles técnicos
-- Descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
-- Opcional - detalles de la organización del código por carpetas o descripción de algún archivo. (ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO, comando 'tree' de linux)
-- Opcional - si quiere mostrar resultados o pantallazos
+#### Instalación de MicroK8s en Ubuntu 22.04
+
+_**Nota:** Se tiene que hacer por cada nodo._
+
+1. Actualizar el sistema:
+
+   ```bash
+   sudo snap install microk8s --classic
+   ```
+
+1. Instalar MicroK8s con el siguiente comando:
+
+   ```bash
+   sudo snap install microk8s --classic
+   ```
+
+1. Añadir el usuario al grupo de microk8s:
+
+   ```bash
+   sudo usermod -a -G microk8s $USER
+   ```
+
+1. Crear el directorio `~/.kube`:
+
+   ```bash
+   mkdir -p ~/.kube
+   ```
+
+1. Añaadir el alias de `microk8s.kubectl`:
+
+   ```bash
+   echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
+   ```
+
+1. Reiniciar la terminal o ejecutar el siguiente comando:
+
+   ```bash
+    source ~/.bashrc
+   ```
+
+1. Habilitar los servicios de MicroK8s:
+
+   ```bash
+   microk8s enable dns dashboard registry istio
+   ```
 
 ### 4. Descripción del ambiente de ejecución (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 
