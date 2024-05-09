@@ -18,12 +18,6 @@
 
 ### 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 
-_**Nota:** Para mayor facilidad, se debe clonar el repositorio en cada máquina virtual._
-
-```bash
-git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
-```
-
 #### Máquinas virtuales en GCP
 
 Se crearon 4 máquinas virtuales en Google Cloud Platform con las siguientes características:
@@ -55,7 +49,7 @@ _**Nota:** Llamamos a las máquinas virtuales `microk8s-master`, `microk8s-worke
 
    ```bash
    cd st0263-Proyecto-2-Kubernetes
-   ./nfs.sh
+   ./scripts/nfs.sh
    ```
 
 ##### Opción 2: Instalación Manual de NFS
