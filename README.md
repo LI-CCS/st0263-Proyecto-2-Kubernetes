@@ -37,6 +37,8 @@ _**Nota:** Llamamos a las máquinas virtuales `microk8s-master`, `microk8s-worke
 
 #### NFS
 
+_**Nota:** Se tiene que hacer en la máquina `microk8s-nfs`._
+
 ##### Opción 1: Script de Instalación de NFS
 
 1. Clonar el repositorio:
@@ -54,7 +56,7 @@ _**Nota:** Llamamos a las máquinas virtuales `microk8s-master`, `microk8s-worke
 
 ##### Opción 2: Instalación Manual de NFS
 
-1. Instalar el servidor NFS en la máquina `microk8s-nfs`:
+1. Instalar el servidor NFS con el siguiente comando:
 
    ```bash
    sudo apt update
@@ -101,10 +103,36 @@ _**Nota:** Llamamos a las máquinas virtuales `microk8s-master`, `microk8s-worke
 
 _**Nota:** Se tiene que hacer por cada nodo._
 
+##### Opción 1: Script de Instalación de MicroK8s
+
+1. Clonar el repositorio:
+
+   ```bash
+   git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
+   ```
+
+1. Ejecutar el script `install-microk8s-1.sh`:
+
+   ```bash
+   cd st0263-Proyecto-2-Kubernetes
+   ./scripts/install-microk8s-1.sh
+   ```
+
+1. Salir de la sesión y volver a entrar.
+
+1. Ejecutar el script `install-microk8s-2.sh`:
+
+   ```bash
+   cd st0263-Proyecto-2-Kubernetes
+   ./scripts/install-microk8s-2.sh
+   ```
+
+##### Opción 2: Instalación Manual de MicroK8s
+
 1. Actualizar el sistema:
 
    ```bash
-   sudo snap install microk8s --classic
+   sudo apt update -y
    ```
 
 1. Instalar MicroK8s con el siguiente comando:
@@ -129,18 +157,31 @@ _**Nota:** Se tiene que hacer por cada nodo._
 
    ```bash
    echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
+   source ~/.bashrc
    ```
 
-1. Reiniciar la terminal o ejecutar el siguiente comando:
-
-   ```bash
-    source ~/.bashrc
-   ```
+1. Salir de la sesión y volver a entrar.
 
 1. Habilitar los servicios de MicroK8s:
 
    ```bash
    microk8s enable dns dashboard registry istio
+   ```
+
+#### Configuración de los nodos Worker
+
+_**Nota:** Se tiene que hacer en los nodos `microk8s-worker-1` y `microk8s-worker-2`._
+
+1. En el nodo `microk8s-master`, obtener el token de unión:
+
+   ```bash
+   microk8s add-node
+   ```
+
+1. En el nodo `microk8s-worker-n`, unir el nodo al clúster:
+
+   ```bash
+   microk8s join <IP_MASTER>:25000/<TOKEN
    ```
 
 ### 4. Descripción del ambiente de ejecución (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
