@@ -18,6 +18,91 @@
 
 ### 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 
+_**Nota:** Para mayor facilidad, se debe clonar el repositorio en cada máquina virtual._
+
+```bash
+git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
+```
+
+#### Máquinas virtuales en GCP
+
+Se crearon 4 máquinas virtuales en Google Cloud Platform con las siguientes características:
+
+- **Ubuntu 22.04 LTS x86_64**
+- **2 vCPUs**
+- **4 GB de memoria**
+- **20 GB de disco**
+
+En la sección de **Firewall** se habilitó lo siguiente:
+
+- [x] Tráfico HTTP
+- [x] Tráfico HTTPS
+- [x] Verificaciones de estado del balanceador de cargas
+
+_**Nota:** Llamamos a las máquinas virtuales `microk8s-master`, `microk8s-worker-1`, `microk8s-worker-1` y `microk8s-nfs`._
+
+#### NFS
+
+##### Opción 1: Script de Instalación de NFS
+
+1. Clonar el repositorio:
+
+   ```bash
+   git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
+   ```
+
+2. Ejecutar el script `nfs.sh`:
+
+   ```bash
+   cd st0263-Proyecto-2-Kubernetes
+   ./nfs.sh
+   ```
+
+##### Opción 2: Instalación Manual de NFS
+
+1. Instalar el servidor NFS en la máquina `microk8s-nfs`:
+
+   ```bash
+   sudo apt update
+   sudo apt install nfs-kernel-server
+   ```
+
+2. Crear el directorio que se compartirá:
+
+   ```bash
+   sudo mkdir -p /mnt/wordpress
+   ```
+
+3. Cambiar el propietario del directorio:
+
+   ```bash
+   sudo chown nobody:nogroup /mnt/wordpress
+   ```
+
+4. Cambiar los permisos del directorio:
+
+   ```bash
+   sudo chmod 777 /mnt/wordpress
+   ```
+
+5. Editar el archivo `/etc/exports`:
+
+   ```bash
+   sudo nano /etc/exports
+   ```
+
+   Añadir la siguiente línea:
+
+   ```bash
+   /mnt/wordpress *(rw,sync,no_subtree_check)
+   ```
+
+6. Reiniciar el servicio de NFS:
+
+   ```bash
+   sudo systemctl restart nfs-kernel-server
+   ```
+
 #### Instalación de MicroK8s en Ubuntu 22.04
 
 _**Nota:** Se tiene que hacer por cada nodo._
