@@ -21,10 +21,8 @@ if ! grep -q "alias kubectl='microk8s kubectl'" ~/.bashrc; then
     source ~/.bashrc
 fi
 
-# Enable required MicroK8s services
-microk8s enable dashboard dns registry istio
-
 # Output instructions for post-installation steps
 echo "MicroK8s installed successfully."
 echo "You may need to log out and log back in for group membership changes to take effect."
+echo "Then you should run the second script to finish the installation."
 echo "Happy Kubernetting!"
