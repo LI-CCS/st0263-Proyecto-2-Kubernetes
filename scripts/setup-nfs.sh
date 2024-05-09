@@ -17,7 +17,7 @@ microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
     --set kubeletDir=/var/snap/microk8s/common/var/lib/kubelet
 
 # Apply the StorageClass and PersistentVolumeClaim manifest
-cd ../manifests
+cd manifests
 microk8s kubectl apply -f 04-sc-pvc-nfs.yaml
 
 echo "CSI Driver for NFS installed successfully."
