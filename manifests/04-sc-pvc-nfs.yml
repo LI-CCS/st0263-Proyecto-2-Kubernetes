@@ -5,7 +5,7 @@ metadata:
   name: nfs-csi
 provisioner: nfs.csi.k8s.io
 parameters:
-  server: ${NFS_SERVER_IP}
+  server: "${NFS_SERVER_IP}"
   share: /srv/nfs
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
