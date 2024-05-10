@@ -33,7 +33,7 @@ En la sección de **Firewall** se habilitó lo siguiente:
 - [x] Tráfico HTTPS
 - [x] Verificaciones de estado del balanceador de cargas
 
-_**Nota:** Llamamos a las máquinas virtuales `microk8s-master`, `microk8s-worker-1`, `microk8s-worker-1` y `microk8s-nfs`._
+_**Nota:** Llamamos a las máquinas virtuales `microk8s-master`, `microk8s-worker-1`, `microk8s-worker-2` y `microk8s-nfs`._
 
 #### NFS
 
