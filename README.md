@@ -16,6 +16,12 @@
 
 ### 2. Información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
 
+#### Arquitectura
+
+<p align="center">
+  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/173dd73d-e63e-486f-9bb0-95894fafa6b0" alt="Arquitectura">
+</p>
+
 ### 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 
 #### Máquinas virtuales en GCP
