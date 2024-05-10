@@ -30,8 +30,10 @@ Se debe contar con nombre de dominio, https, balanceador, base de datos externa 
 
 #### Arquitectura
 
+Se accede mediante [https://ṕroyecto2.temporaladventures.tech](https://ṕroyecto2.temporaladventures.tech).
+
 <p align="center">
-  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/173dd73d-e63e-486f-9bb0-95894fafa6b0" alt="Arquitectura">
+  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/6f69c046-1f0f-4f6c-a8d6-ec8a87ee9eb2" alt="Arquitectura">
 </p>
 
 ### 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
