@@ -10,7 +10,19 @@
 
 ### 1. Breve descripción de la actividad
 
+Se debe desplegar una aplicación monolítica (Wordpress) en un clúster de Kubernetes montado en diferentes máquinas virtuales en IaaS nube AWS. Allí se debe considerar el manejo de volúmenes compartidos (Montar un servidor NFS) y la capa de acceso al clúster ya sea con un balanceador o con otras opciones como Service, Ingress o similar.
+
+Se debe contar con nombre de dominio, https, balanceador, base de datos externa y sistema de archivos externos a la capa de servicios (app).
+
 #### 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+
+- [x] Clúster de Kubernetes en diferentes máquinas virtuales en IaaS nube AWS.
+- [ ] Desplegar una aplicación monolítica (Wordpress) en un clúster de Kubernetes.
+- [ ] Base de datos.
+- [x] Montar un servidor NFS.
+- [ ] Capa de acceso al clúster con Service, Ingress o similar.
+- [ ] Nombre de dominio.
+- [ ] HTTPS.
 
 #### 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
 
