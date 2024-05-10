@@ -168,6 +168,8 @@ _**Nota:** Se tiene que hacer por cada nodo._
    microk8s enable dns dashboard registry istio
    ```
 
+### 4. Descripción del ambiente de ejecución (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+
 #### Configuración de los nodos Worker
 
 _**Nota:** Se tiene que hacer en los nodos `microk8s-worker-1` y `microk8s-worker-2`._
@@ -181,16 +183,95 @@ _**Nota:** Se tiene que hacer en los nodos `microk8s-worker-1` y `microk8s-worke
 1. En el nodo `microk8s-worker-n`, unir el nodo al clúster:
 
    ```bash
-   microk8s join <IP_MASTER>:25000/<TOKEN
+   microk8s join <IP_MASTER>:25000/<TOKEN> --worker
    ```
 
-### 4. Descripción del ambiente de ejecución (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+#### Configuración del Master
 
-- IP o nombres de dominio en nube o en la máquina servidor.
-- Descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
-- Como se lanza el servidor.
-- Una mini guia de como un usuario utilizaría el software o la aplicación
-- Opcional - si quiere mostrar resultados o pantallazos
+_**Nota:** Se tiene que hacer en el nodo `microk8s-master`._
+
+Clona el repositorio:
+
+```bash
+git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
+```
+
+##### NFS
+
+##### Opción 1: Script de configuración de NFS
+
+1. Ejecutar el script `setup-nfs.sh`:
+
+   ```bash
+   cd
+   cd st0263-Proyecto-2-Kubernetes
+   ./scripts/setup-nfs.sh <IP-NFS-SERVER>
+   ```
+
+##### Opción 2: Configuración Manual de NFS
+
+1. Habilitar Helm3 y añadir el repositorio de CSI Driver para NFS:
+
+   ```bash
+   microk8s enable helm3
+   microk8s helm3 repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+   microk8s helm3 repo update
+   ```
+
+1. Instalar el driver para NFS:
+
+   ```bash
+   microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
+    --namespace kube-system \
+    --set kubeletDir=/var/snap/microk8s/common/var/lib/kubelet
+   ```
+
+1. Crear el StorageClass en un archivo `nfs-csi.yaml`:
+
+   ```yml
+   ---
+   apiVersion: storage.k8s.io/v1
+   kind: StorageClass
+   metadata:
+   name: nfs-csi
+   provisioner: nfs.csi.k8s.io
+   parameters:
+   server: <NFS_SERVER_IP>
+   share: /mnt/wordpress
+   reclaimPolicy: Delete
+   volumeBindingMode: Immediate
+   mountOptions:
+     - hard
+     - nfsvers=4.1
+   ```
+
+1. Aplicar el archivo `nfs-csi.yaml`:
+
+   ```bash
+   kubectl apply -f nfs-csi.yaml
+   ```
+
+1. Crear el PersistentVolumeClaim en un archivo `nfs-pvc.yaml`:
+
+   ```yml
+   ---
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+   name: nfs-pvc
+   spec:
+   storageClassName: nfs-csi
+   accessModes: [ReadWriteOnce]
+   resources:
+     requests:
+       storage: 5Gi
+   ```
+
+1. Aplicar el archivo `nfs-pvc.yaml`:
+
+   ```bash
+   kubectl apply -f nfs-pvc.yaml
+   ```
 
 ### 5. Otra información que considere relevante para esta actividad.
 
