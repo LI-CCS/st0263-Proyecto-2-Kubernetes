@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nfs-server-config
+data:
+  NFS_SERVER_IP: <NFS_SERVER_IP>
