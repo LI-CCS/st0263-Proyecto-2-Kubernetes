@@ -20,7 +20,7 @@
 
 #### Máquinas virtuales en GCP
 
-Se crearon 4 máquinas virtuales en Google Cloud Platform con las siguientes características:
+Se crearon 4 máquinas virtuales e2-medium en Google Cloud Platform con las siguientes características:
 
 - **Ubuntu 22.04 LTS x86_64**
 - **2 vCPUs**
