@@ -51,7 +51,7 @@ _**Nota:** Se tiene que hacer en la máquina `microk8s-nfs`._
 
    ```bash
    cd st0263-Proyecto-2-Kubernetes
-   ./scripts/nfs.sh
+   ./scripts/install-nfs.sh
    ```
 
 ##### Opción 2: Instalación Manual de NFS
