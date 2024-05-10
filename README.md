@@ -203,7 +203,6 @@ git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
 1. Ejecutar el script `setup-nfs.sh`:
 
    ```bash
-   cd
    cd st0263-Proyecto-2-Kubernetes
    ./scripts/setup-nfs.sh <IP-NFS-SERVER>
    ```
