@@ -1,10 +1,13 @@
 #!/bin/bash
 
-# Check if the variable is defined
-if [ -z "$NFS_SERVER_IP" ]; then
-    echo "The NFS_SERVER_IP environment variable is not defined."
+# Verificar si se proporciona la IP del servidor NFS como argumento
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <nfs-server-ip>"
     exit 1
 fi
+
+# Asignar el argumento proporcionado a una variable
+nfs_server_ip=$1
 
 # Enable Helm3 and add the CSI Driver for NFS repository
 microk8s enable helm3
@@ -16,9 +19,25 @@ microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
     --namespace kube-system \
     --set kubeletDir=/var/snap/microk8s/common/var/lib/kubelet
 
+# Create the env directory if it doesn't exist
+mkdir -p manifests/env
+
+# Create the ConfigMap manifest
+cat <<EOF > manifests/env/01-configmap-nfs-client.yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nfs-server-config
+data:
+  NFS_SERVER_IP: $nfs_server_ip
+EOF
+
+echo "ConfigMap manifest created successfully."
+echo "If you need to change the NFS server IP or path, you can edit the ConfigMap manifest located at manifests/env/01-configmap-nfs-client.yml."
+
 # Apply the StorageClass and PersistentVolumeClaim manifest
 cd manifests
-microk8s kubectl apply -f 04-sc-pvc-nfs.yaml
+microk8s kubectl apply -f 04-sc-pvc-nfs.yml
 
 echo "CSI Driver for NFS installed successfully."
 echo "NFS configuration completed."
