@@ -2,23 +2,28 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mysql-pv
+  labels:
+    type: local
 spec:
+  storageClassName: manual
   capacity:
-    storage: 50Gi
+    storage: 20Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /mnt/mysql
+    path: "/mnt/mysql"
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
+  labels:
+    app: wordpress
 spec:
   accessModes:
     - ReadWriteOnce
   volumeName: mysql-pv
   resources:
     requests:
-      storage: 50Gi
+      storage: 20Gi
