@@ -1,19 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: wordpress
-spec:
-replicas: 3
-selector:
-    matchLabels:
+  name: wordpress
+  labels:
     app: wordpress
-template:
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
     metadata:
-    labels:
+      labels:
         app: wordpress
+        tier: frontend
     spec:
       containers:
-      - image: wordpress
+      - image: docker.io/bitnami/wordpress:6.5.3
         name: wordpress
         env:
         - name: WORDPRESS_DB_HOST
@@ -29,9 +34,9 @@ template:
         - containerPort: 80
           name: wordpress
         volumeMounts:
-            - name: nfs
-            mountPath: /mnt/wordpress
-    volumes:
-        - name: nfs
+        - name: wordpress-persistent-storage
+          mountPath: /var/www/html
+      volumes:
+      - name: wordpress-persistent-storage
         persistentVolumeClaim:
-            claimName: nfs-pvc
+          claimName: wordpress-pvc
