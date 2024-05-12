@@ -83,25 +83,25 @@ _**Nota:** Se tiene que hacer en la máquina `microk8s-nfs`._
    sudo apt install nfs-kernel-server
    ```
 
-1. Crear el directorio que se compartirá:
+2. Crear el directorio que se compartirá:
 
    ```bash
    sudo mkdir -p /mnt/wordpress
    ```
 
-1. Cambiar el propietario del directorio:
+3. Cambiar el propietario del directorio:
 
    ```bash
    sudo chown nobody:nogroup /mnt/wordpress
    ```
 
-1. Cambiar los permisos del directorio:
+4. Cambiar los permisos del directorio:
 
    ```bash
    sudo chmod 777 /mnt/wordpress
    ```
 
-1. Editar el archivo `/etc/exports`:
+5. Editar el archivo `/etc/exports`:
 
    ```bash
    sudo nano /etc/exports
@@ -113,37 +113,8 @@ _**Nota:** Se tiene que hacer en la máquina `microk8s-nfs`._
    /mnt/wordpress *(rw,sync,no_subtree_check)
    ```
 
-1. Crear el directorio que se compartirá:
+6. Reiniciar el servicio de NFS:
 
-   ```bash
-   sudo mkdir -p /mnt/mysql
-   ```
-
-1. Cambiar el propietario del directorio:
-
-   ```bash
-   sudo chown nobody:nogroup /mnt/mysql
-   ```
-
-1. Cambiar los permisos del directorio:
-
-   ```bash
-   sudo chmod 777 /mnt/mysql
-   ```
-
-1. Editar el archivo `/etc/exports`:
-
-   ```bash
-   sudo nano /etc/exports
-   ```
-
-   Añadir la siguiente línea:
-
-   ```bash
-   /mnt/mysql *(rw,sync,no_subtree_check)
-   ```
-
-1. Reiniciar el servicio de NFS:
    ```bash
    sudo systemctl restart nfs-kernel-server
    ```
