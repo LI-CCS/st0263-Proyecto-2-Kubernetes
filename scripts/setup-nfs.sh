@@ -22,6 +22,10 @@ microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
 # Create the env directory if it doesn't exist
 mkdir -p manifests/env
 
+# Delete existing ConfigMap if it exists
+microk8s kubectl delete configmap nfs-server-config --ignore-not-found=true
+
+
 # Create the ConfigMap manifest
 cat <<EOF > manifests/env/01-configmap-nfs-client.yml
 apiVersion: v1
