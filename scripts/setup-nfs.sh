@@ -33,13 +33,13 @@ data:
 EOF
 
 # Apply the ConfigMap manifest
-microk8s kubectl apply -f manifests/env/01-configmap-nfs-client.yml
+microk8s kubectl apply --force -f manifests/env/01-configmap-nfs-client.yml
 
 echo "ConfigMap manifest created successfully."
 echo "If you need to change the NFS server IP or path, you can edit the ConfigMap manifest located at manifests/env/01-configmap-nfs-client.yml."
 
 # Apply the StorageClass and PersistentVolumeClaim manifest
-microk8s kubectl apply -f manifests/04-sc-pvc-nfs.yml
+microk8s kubectl apply --force -f manifests/04-sc-pvc-nfs.yml
 
 echo "CSI Driver for NFS installed successfully."
 echo "NFS configuration completed."
