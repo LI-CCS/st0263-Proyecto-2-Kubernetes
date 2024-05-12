@@ -3,17 +3,11 @@ kind: Deployment
 metadata:
   name: mysql
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: mysql
-  template:
-    metadata:
-      labels:
-        app: mysql
+  strategy:
+    type: Recreate
     spec:
       containers:
-      - image: docker.io/bitnami/mysql:8.0
+      - image: mysql:8.0
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
@@ -40,5 +34,14 @@ spec:
       - name: mysql-pv
         persistentVolumeClaim:
           claimName: mysql-pvc
-
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
