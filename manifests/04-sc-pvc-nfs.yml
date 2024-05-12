@@ -1,17 +1,16 @@
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
+apiVersion: v1
+kind: PersistentVolume
 metadata:
-  name: nfs-csi
-provisioner: nfs.csi.k8s.io
-parameters:
-  server: configmap://nfs-server-config/NFS_SERVER_IP
-  share: /mnt/wordpress
-reclaimPolicy: Delete
-volumeBindingMode: Immediate
-mountOptions:
-  - hard
-  - nfsvers=4.1
+  name: nfs-pv
+  # No namespace, PVs are global
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 1Mi
+  nfs:
+    path: /
+    server: configmap://nfs-server-config/NFS_SERVER_IP
 
 ---
 apiVersion: v1
@@ -19,9 +18,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: nfs-pvc
 spec:
-  storageClassName: nfs-csi
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
+  volumeName: nfs-pv
