@@ -7,7 +7,7 @@ spec:
   accessModes:
     - ReadWriteMany
   capacity:
-    storage: 1Mi
+    storage: 5Gi
   nfs:
     path: /
     server: configmap://nfs-server-config/NFS_SERVER_IP
