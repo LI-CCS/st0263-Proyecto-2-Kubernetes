@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: mysql
 spec:
+  selector:
+    matchLabels:
+      app: mysql
   strategy:
     type: Recreate
   template:
