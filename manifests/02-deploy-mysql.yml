@@ -9,6 +9,9 @@ spec:
   strategy:
     type: Recreate
   template:
+    metadata:
+      labels:
+        app: mysql
     spec:
       containers:
       - image: mysql:8.0
