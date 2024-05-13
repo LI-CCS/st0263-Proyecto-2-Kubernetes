@@ -17,7 +17,7 @@ microk8s kubectl delete pvc nfs-pvc --ignore-not-found=true
 mkdir -p manifests/tmp
 
 # Update the NFS server IP in the StorageClass and PersistentVolumeClaim manifest
-cat manifests/04-sc-pvc-nfs.yml | sed "s/NFS_SERVER_IP/$nfs_server_ip/g" > manifests/temp/04-sc-pvc-nfs.yml.tmp
+cat manifests/04-sc-pvc-nfs.yml | sed "s/NFS_SERVER_IP/$nfs_server_ip/g" > manifests/tmp/04-sc-pvc-nfs.yml.tmp
 
 # Apply the StorageClass and PersistentVolumeClaim manifest
 microk8s kubectl apply --force -f manifests/04-sc-pvc-nfs.yml.tmp
