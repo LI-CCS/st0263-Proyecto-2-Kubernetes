@@ -543,3 +543,5 @@ _**Nota:** Se tiene que hacer en el nodo `microk8s-master`._
 - [Install MicroK8s](https://microk8s.io/#install-microk8s)
 - [Create a MicroK8s cluster](https://microk8s.io/docs/clustering)
 - [NFS in MicroK8s](https://microk8s.io/docs/how-to-nfs)
+- [Deploying WordPress and MySQL with Persistent Volumes](https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+- [MicroK8s: Setup Ingress Nginx Controller and Cert Manager on Kubernetes Single Node Cluster](https://8grams.medium.com/microk8s-setup-ingress-nginx-controller-and-cert-manager-on-kubernetes-single-node-cluster-39100b0e86bc)
