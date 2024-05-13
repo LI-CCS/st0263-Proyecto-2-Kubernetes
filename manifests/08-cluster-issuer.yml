@@ -2,14 +2,13 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: letsencrypt-http01-prod
-  namespace: monitoring
+  name: letsencrypt-prod
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
     email: msosav@eafit.edu.co
     privateKeySecretRef:
-      name: letsencrypt-prod-http01-key-pair
+      name: letsencrypt-prod-key-pair
     solvers:
       - http01:
           ingress:
