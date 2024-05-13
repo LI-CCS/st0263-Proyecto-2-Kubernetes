@@ -17,26 +17,6 @@ microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
     --namespace kube-system \
     --set kubeletDir=/var/snap/microk8s/common/var/lib/kubelet
 
-# Asignar el argumento proporcionado a una variable
-nfs_server_ip=$1
-
-# Create the env directory if it doesn't exist
-mkdir -p manifests/env
-
-# Delete existing ConfigMap if it exists
-microk8s kubectl delete configmap nfs-server-config --ignore-not-found=true
-
-
-# Create the ConfigMap manifest
-cat <<EOF > manifests/env/01-configmap-nfs-client.yml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nfs-config
-data:
-  NFS_SERVER_IP: $nfs_server_ip
-EOF
-
 # Apply the ConfigMap manifest
 microk8s kubectl apply --force -f manifests/env/01-configmap-nfs-client.yml
 

@@ -4,11 +4,7 @@ metadata:
   name: nfs-csi
 provisioner: nfs.csi.k8s.io
 parameters:
-  server:
-    valueFrom:
-      configMapKeyRef:
-        name: nfs-config
-        key: NFS_SERVER_IP
+  server: 10.128.0.5
   share: /mnt/wordpress
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
