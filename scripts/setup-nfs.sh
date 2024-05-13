@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Verificar si se proporciona la IP del servidor NFS como argumento
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <nfs-server-ip>"
-    exit 1
-fi
-
-
 # Enable Helm3 and add the CSI Driver for NFS repository
 microk8s enable helm3
 microk8s helm3 repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
