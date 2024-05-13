@@ -3,5 +3,5 @@ secretGenerator:
     literals:
       - password=YOUR_PASSWORD
 resources:
-  - 02-deploy-mysql.yml
-  - 06-deploy-wordpress.yml
+  - manifests/02-deploy-mysql.yml
+  - manifests/06-deploy-wordpress.yml
