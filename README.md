@@ -59,23 +59,6 @@ _**Nota:** Llamamos a las máquinas virtuales `microk8s-master`, `microk8s-worke
 
 _**Nota:** Se tiene que hacer en la máquina `microk8s-nfs`._
 
-##### Opción 1: Script de Instalación de NFS
-
-1. Clonar el repositorio:
-
-   ```bash
-   git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
-   ```
-
-2. Ejecutar el script `nfs.sh`:
-
-   ```bash
-   cd st0263-Proyecto-2-Kubernetes
-   ./scripts/install-nfs.sh
-   ```
-
-##### Opción 2: Instalación Manual de NFS
-
 1. Instalar el servidor NFS con el siguiente comando:
 
    ```bash
@@ -122,32 +105,6 @@ _**Nota:** Se tiene que hacer en la máquina `microk8s-nfs`._
 #### Instalación de MicroK8s en Ubuntu 22.04
 
 _**Nota:** Se tiene que hacer por cada nodo._
-
-##### Opción 1: Script de Instalación de MicroK8s
-
-1. Clonar el repositorio:
-
-   ```bash
-   git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
-   ```
-
-1. Ejecutar el script `install-microk8s-1.sh`:
-
-   ```bash
-   cd st0263-Proyecto-2-Kubernetes
-   ./scripts/install-microk8s-1.sh
-   ```
-
-1. Salir de la sesión y volver a entrar.
-
-1. Ejecutar el script `install-microk8s-2.sh`:
-
-   ```bash
-   cd st0263-Proyecto-2-Kubernetes
-   ./scripts/install-microk8s-2.sh
-   ```
-
-##### Opción 2: Instalación Manual de MicroK8s
 
 1. Actualizar el sistema:
 
@@ -210,24 +167,7 @@ _**Nota:** Se tiene que hacer en los nodos `microk8s-worker-1` y `microk8s-worke
 
 _**Nota:** Se tiene que hacer en el nodo `microk8s-master`._
 
-Clona el repositorio:
-
-```bash
-git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
-```
-
 ##### NFS
-
-##### Opción 1: Script de configuración de NFS
-
-1. Ejecutar el script `setup-nfs.sh`:
-
-   ```bash
-   cd st0263-Proyecto-2-Kubernetes
-   ./scripts/setup-nfs.sh <IP-NFS-SERVER>
-   ```
-
-##### Opción 2: Configuración Manual de NFS
 
 1. Habilitar Helm3 y añadir el repositorio de CSI Driver para NFS:
 
@@ -290,6 +230,310 @@ git clone https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes.git
 
    ```bash
    kubectl apply -f nfs-pvc.yaml
+   ```
+
+##### MySQL
+
+1. Crear el servicio de MySQL en un archivo `mysql-svc.yaml`:
+
+   ```yml
+   ---
+   apiVersion: v1
+   kind: Service
+   metadata:
+   name: wordpress-mysql
+   labels:
+     app: wordpress
+   spec:
+     ports:
+       - port: 3306
+     selector:
+       app: wordpress
+       tier: mysql
+     clusterIP: None
+   ```
+
+1. Aplicar el archivo `mysql-svc.yaml`:
+
+   ```bash
+   kubectl apply -f mysql-svc.yaml
+   ```
+
+1. Crear el PV y PVC de MySQL en un archivo `mysql-pv-pvc.yaml`:
+
+   ```yml
+   apiVersion: v1
+   kind: PersistentVolume
+   metadata:
+   name: mysql-pv
+   labels:
+     type: local
+   spec:
+   storageClassName: manual
+   capacity:
+     storage: 20Gi
+   accessModes:
+     - ReadWriteOnce
+   hostPath:
+     path: "/mnt/mysql"
+
+   ---
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+   name: mysql-pvc
+   labels:
+     app: wordpress
+   spec:
+   storageClassName: manual
+   accessModes:
+     - ReadWriteOnce
+   volumeName: mysql-pv
+   resources:
+     requests:
+       storage: 20Gi
+   ```
+
+1. Aplicar el archivo `mysql-pv-pvc.yaml`:
+
+   ```bash
+   kubectl apply -f mysql-pv-pvc.yaml
+   ```
+
+1. Crear el Deployment de MySQL en un archivo `mysql-deployment.yaml`:
+
+   ```yml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+   name: wordpress-mysql
+   labels:
+      app: wordpress
+   spec:
+   selector:
+      matchLabels:
+         app: wordpress
+         tier: mysql
+   strategy:
+      type: Recreate
+   template:
+      metadata:
+         labels:
+         app: wordpress
+         tier: mysql
+      spec:
+         containers:
+         - image: mysql:8.0
+            name: mysql
+            env:
+               - name: MYSQL_ROOT_PASSWORD
+               valueFrom:
+                  secretKeyRef:
+                     name: mysql-pass
+                     key: password
+               - name: MYSQL_DATABASE
+               value: wordpress
+               - name: MYSQL_USER
+               value: wordpress
+               - name: MYSQL_PASSWORD
+               valueFrom:
+                  secretKeyRef:
+                     name: mysql-pass
+                     key: password
+            ports:
+               - containerPort: 3306
+               name: mysql
+            volumeMounts:
+               - name: mysql-persistent-storage
+               mountPath: /var/lib/mysql
+         volumes:
+         - name: mysql-persistent-storage
+            persistentVolumeClaim:
+               claimName: mysql-pvc
+   ```
+
+1. Aplicar el archivo `mysql-deployment.yaml`:
+
+   ```bash
+   kubectl apply -f mysql-deployment.yaml
+   ```
+
+##### Wordpress
+
+1. Crear el Servicio de Wordpress en un archivo `wordpress-svc.yaml`:
+
+   ```yml
+   ---
+   apiVersion: v1
+   kind: Service
+   metadata:
+   name: wordpress
+   labels:
+      app: wordpress
+   spec:
+   ports:
+      - protocol: TCP
+         port: 80
+         targetPort: 80
+   selector:
+      app: wordpress
+      tier: frontend
+   ```
+
+1. Aplicar el archivo `wordpress-svc.yaml`:
+
+   ```bash
+   kubectl apply -f wordpress-svc.yaml
+   ```
+
+1. Crear elPVC de Wordpress en un archivo `wordpress-pvc.yaml`:
+
+   ```yml
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+   name: wp-pv-claim
+   labels:
+     app: wordpress
+   spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 1Gi
+   storageClassName: nfs-csi
+   ```
+
+1. Crear el Deployment de Wordpress en un archivo `wordpress-deployment.yaml`:
+
+   ```yml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+   name: wordpress
+   labels:
+      app: wordpress
+   spec:
+   selector:
+      matchLabels:
+         app: wordpress
+         tier: frontend
+   strategy:
+      type: Recreate
+   template:
+      metadata:
+         labels:
+         app: wordpress
+         tier: frontend
+      spec:
+         containers:
+         - image: wordpress
+            name: wordpress
+            env:
+               - name: WORDPRESS_DB_HOST
+               value: wordpress-mysql
+               - name: WORDPRESS_DB_PASSWORD
+               valueFrom:
+                  secretKeyRef:
+                     name: mysql-pass
+                     key: password
+               - name: WORDPRESS_DB_USER
+               value: wordpress
+            ports:
+               - containerPort: 80
+               name: wordpress
+            volumeMounts:
+               - name: wordpress-persistent-storage
+               mountPath: /var/www/html
+         volumes:
+         - name: wordpress-persistent-storage
+            persistentVolumeClaim:
+               claimName: wp-pv-claim
+   ```
+
+1. Aplicar el archivo `wordpress-deployment.yaml`:
+
+   ```bash
+   kubectl apply -f wordpress-deployment.yaml
+   ```
+
+1. Crear el kustomization.yaml:
+
+   ```yml
+   secretGenerator:
+   - name: mysql-pass
+      literals:
+         - password=YOUR_PASSWORD
+   resources:
+   - mysql-deployment.yaml
+   - wordpress-deployment.yaml
+   ```
+
+1. Aplicar el kustomization.yaml:
+
+   ```bash
+   kubectl apply -k .
+   ```
+
+##### Ingress
+
+1. Habilitar el Ingress y el Cert-Manager:
+
+   ```bash
+   microk8s enable ingress cert-manager
+   ```
+
+1. Crear el ClusterIssuer en un archivo `cluster-issuer.yaml`:
+
+   ```yml
+   apiVersion: cert-manager.io/v1
+   kind: ClusterIssuer
+   metadata:
+   name: lets-encrypt
+   spec:
+   acme:
+     email: me@email.com
+     server: https://acme-v02.api.letsencrypt.org/directory
+     privateKeySecretRef:
+       name: lets-encrypt-priviate-key
+     solvers:
+       - http01:
+           ingress:
+             class: public
+   ```
+
+1. Aplicar el archivo `cluster-issuer.yaml`:
+
+   ```bash
+   kubectl apply -f cluster-issuer.yaml
+   ```
+
+1. Crear el Ingress en un archivo `ingress.yaml`:
+
+   ```yml
+   apiVersion: networking.k8s.io/v1
+   kind: Ingress
+   metadata:
+   name: wordpress-ingress
+   annotations:
+     kubernetes.io/ingress.class: public
+     cert-manager.io/cluster-issuer: lets-encrypt
+   spec:
+   tls:
+     - hosts:
+         - dominio.com
+       secretName: dominio-com-tls
+   rules:
+     - host: dominio.com
+       http:
+         paths:
+           - path: /
+             pathType: Prefix
+             backend:
+               service:
+                 name: wordpress
+                 port:
+                   number: 80
    ```
 
 ### 5. Otra información que considere relevante para esta actividad.
