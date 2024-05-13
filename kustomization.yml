@@ -4,4 +4,4 @@ secretGenerator:
       - password=YOUR_PASSWORD
 resources:
   - manifests/02-deploy-mysql.yml
-  - manifests/06-deploy-wordpress.yml
+  - manifests/07-deploy-wordpress.yml
