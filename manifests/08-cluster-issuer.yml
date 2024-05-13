@@ -1,15 +1,14 @@
----
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod
+  name: lets-encrypt
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
     email: msosav@eafit.edu.co
+    server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-prod-key-pair
+      name: lets-encrypt-priviate-key
     solvers:
       - http01:
           ingress:
-            class: nginx
+            class: public
