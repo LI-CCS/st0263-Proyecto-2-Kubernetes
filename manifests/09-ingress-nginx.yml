@@ -1,27 +1,27 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-name: ingress-nginx
-annotations:
-   cert-manager.io/issuer: letsencrypt-prod
-   nginx.ingress.kubernetes.io/ssl-redirect: "true"
-   nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-   nginx.ingress.kubernetes.io/use-regex: "true"
-   nginx.ingress.kubernetes.io/rewrite-target: /$1
+  name: ingress-service
+  annotations:
+    cert-manager.io/issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-ingressClassName: nginx
-tls:
-   - hosts:
-      - proyecto2.temporaladventures.tech 
-   secretName: proyecto2-temporaladventures-tech -tls
-rules:
-   - host: proyecto2.temporaladventures.tech 
-   http:
-      paths:
-         - path: /
-         pathType: Prefix
-         backend:
-            service:
-               name: wordpress
-               port:
-               number: 80
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - reto4.temporaladventures.tech
+      secretName: reto4-temporaladventures-tech-tls
+  rules:
+    - host: reto4.temporaladventures.tech
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wordpress
+                port:
+                  number: 80
