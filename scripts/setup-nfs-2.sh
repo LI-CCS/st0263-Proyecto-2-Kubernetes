@@ -20,6 +20,6 @@ mkdir -p manifests/tmp
 cat manifests/04-sc-pvc-nfs.yml | sed "s/NFS_SERVER_IP/$nfs_server_ip/g" > manifests/tmp/04-sc-pvc-nfs.yml.tmp
 
 # Apply the StorageClass and PersistentVolumeClaim manifest
-microk8s kubectl apply --force -f manifests/04-sc-pvc-nfs.yml.tmp
+microk8s kubectl apply --force -f manifests/tmp/04-sc-pvc-nfs.yml.tmp
 
 echo "NFS configuration completed."
