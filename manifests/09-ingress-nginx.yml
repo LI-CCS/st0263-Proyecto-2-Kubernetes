@@ -12,10 +12,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - reto4.temporaladventures.tech
-      secretName: reto4-temporaladventures-tech-tls
+        - proyecto2.temporaladventures.tech
+      secretName: proyecto2-temporaladventures-tech-tls
   rules:
-    - host: reto4.temporaladventures.tech
+    - host: proyecto2.temporaladventures.tech
       http:
         paths:
           - path: /
