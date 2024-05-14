@@ -17,14 +17,16 @@ Se debe contar con nombre de dominio, https, balanceador, base de datos externa 
 #### 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
 
 - [x] Clúster de Kubernetes en diferentes máquinas virtuales en IaaS nube AWS.
-- [ ] Desplegar una aplicación monolítica (Wordpress) en un clúster de Kubernetes.
-- [ ] Base de datos.
+- [x] Desplegar una aplicación monolítica (Wordpress) en un clúster de Kubernetes.
+- [x] Base de datos.
 - [x] Montar un servidor NFS.
-- [ ] Capa de acceso al clúster con Service, Ingress o similar.
-- [ ] Nombre de dominio.
-- [ ] HTTPS.
+- [x] Capa de acceso al clúster con Service, Ingress o similar.
+- [x] Nombre de dominio.
+- [x] HTTPS.
 
 #### 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+
+Todo lo propuesto por el profesor fue cumplido.
 
 ### 2. Información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
 
@@ -33,7 +35,7 @@ Se debe contar con nombre de dominio, https, balanceador, base de datos externa 
 Se accede mediante [https://ṕroyecto2.temporaladventures.tech](https://ṕroyecto2.temporaladventures.tech).
 
 <p align="center">
-  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/6f69c046-1f0f-4f6c-a8d6-ec8a87ee9eb2" alt="Arquitectura">
+  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/7419ce63-21d2-446e-9e4a-de97fa16e8b2" alt="Arquitectura">
 </p>
 
 ### 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
