@@ -538,6 +538,12 @@ _**Nota:** Se tiene que hacer en el nodo `microk8s-master`._
                    number: 80
    ```
 
+#### Pantallazos
+
+<p align="center">
+  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/59562a27-61f7-4e52-8b87-c3afd0ebf3a2" alt="Arquitectura">
+</p>
+
 ### 5. Otra información que considere relevante para esta actividad.
 
 ## Referencias:
