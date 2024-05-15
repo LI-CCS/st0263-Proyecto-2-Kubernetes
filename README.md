@@ -416,6 +416,7 @@ _**Nota:** Se tiene que hacer en el nodo `microk8s-master`._
    labels:
       app: wordpress
    spec:
+   replicas: 3
    selector:
       matchLabels:
          app: wordpress
