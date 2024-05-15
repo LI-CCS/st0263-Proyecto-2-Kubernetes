@@ -32,10 +32,10 @@ Todo lo propuesto por el profesor fue cumplido.
 
 #### Arquitectura
 
-Se accede mediante [https://ṕroyecto2.temporaladventures.tech](https://ṕroyecto2.temporaladventures.tech).
+Se accede mediante [https://proyecto2.temporaladventures.tech](https://proyecto2.temporaladventures.tech).
 
 <p align="center">
-  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/7419ce63-21d2-446e-9e4a-de97fa16e8b2" alt="Arquitectura">
+  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/26729eeb-10e5-4520-8a10-4bbdfdddb268" alt="Arquitectura">
 </p>
 
 ### 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
