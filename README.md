@@ -542,7 +542,7 @@ _**Nota:** Se tiene que hacer en el nodo `microk8s-master`._
 #### Pantallazos
 
 <p align="center">
-  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/59562a27-61f7-4e52-8b87-c3afd0ebf3a2" alt="Arquitectura">
+  <img src="https://github.com/LI-CCS/st0263-Proyecto-2-Kubernetes/assets/85181687/6e06ae60-918f-4c18-b176-d2b2a69a7f5b" alt="Pantallazo">
 </p>
 
 ### 5. Otra información que considere relevante para esta actividad.
